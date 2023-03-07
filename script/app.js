@@ -7,6 +7,12 @@ class AddTasks {
     );
   }
 
+  lockInput = () => {};
+
+  editTask = (editIconClassName) => {
+    const editIconEle = document.querySelector(editIconClassName);
+  };
+
   creatTaskEl = (addBtn) => {
     const creatLi = document.createElement("li");
     const addBtnParentId = addBtn.parentElement.querySelector("ul").id;

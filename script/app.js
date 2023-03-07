@@ -7,7 +7,13 @@ class AddTasks {
     );
   }
 
-  lockInput = () => {};
+  lockInput = (parenetElement) => {
+    const inputField = parenetElement.firstElementChild;
+    inputField.addEventListener("keypress", (e) => {
+      if (e.key !== "Enter") return;
+      e.target.disabled = true;
+    });
+  };
 
   editTask = (editIconClassName) => {
     const editIconEle = document.querySelector(editIconClassName);
@@ -19,14 +25,11 @@ class AddTasks {
     const parentList = document.getElementById(addBtnParentId);
     creatLi.innerHTML = `
     <input class="task-input" type="text" placeholder="Task" />
-    <span for='input-field' class="action-icon edit-task">
-        <i class="fa-regular fa-pen-to-square"></i>
-    </span>
-    <span class="action-icon remove-task">
-        <i class="fa-sharp fa-solid fa-trash"></i>
-    </span>
+        <i class="action-icon edit-task fa-regular fa-pen-to-square"></i>
+        <i class="action-icon remove-task fa-sharp fa-solid fa-trash"></i>
     `;
     parentList.append(creatLi);
+    this.lockInput(creatLi);
   };
 }
 

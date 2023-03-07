@@ -33,6 +33,14 @@ class AddTasks {
       const input = e.target.parentElement.firstElementChild;
       input.disabled = false;
     });
+    return editElement;
+  };
+
+  removeElement = (editElement) => {
+    const removeElement = editElement.nextElementSibling;
+    removeElement.addEventListener("click", (e) => {
+      e.target.parentElement.remove();
+    });
   };
 
   editTask = (editIconClassName) => {
@@ -50,7 +58,8 @@ class AddTasks {
     `;
     parentList.append(creatLi);
     const inputField = this.lockInputByEnter(creatLi);
-    this.editInputField(inputField);
+    const editElement = this.editInputField(inputField);
+    this.removeElement(editElement);
     this.lockInputByBodyClick();
   };
 }

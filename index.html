@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+      integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="./css/styles.css" />
+    <script src="./script/app.js" defer></script>
+    <title>Kanban Board</title>
+  </head>
+  <body>
+    <header>
+      <h1 class="main-heading">Project Name Can Edite Here</h1>
+    </header>
+    <main>
+      <section class="tasks-container">
+        <div class="container">
+          <h2 class="table-heading">Not started</h2>
+          <ul id="not-started" class="tasks-list"></ul>
+          <button class="add-task-btn">&plus; Add</button>
+        </div>
+      </section>
+      <section class="tasks-container">
+        <div class="container">
+          <h2 class="table-heading">In Progress</h2>
+          <ul id="in-progress" class="tasks-list"></ul>
+          <button class="add-task-btn">&plus; Add</button>
+        </div>
+      </section>
+      <section class="tasks-container">
+        <div class="container">
+          <h2 class="table-heading">Completed</h2>
+          <ul id="completed" class="tasks-list"></ul>
+          <button class="add-task-btn">&plus; Add</button>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <small
+        >Made with &hearts; by
+        <a id="author" href="#">Mohamed Shalaby</a></small
+      >
+    </footer>
+  </body>
+</html>

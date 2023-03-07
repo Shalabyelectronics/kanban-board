@@ -22,6 +22,7 @@ body {
   --main-font-color: #222831;
   --main-heading-font-size: 4rem;
   --table-heading-font-size: 3rem;
+  --table-heading-font-color: #eee;
   --input-field-font-size: 2rem;
   --add-btn-font-size: 2rem;
   --input-font-color: #393e46;
@@ -52,7 +53,7 @@ main {
   /* Test Alignment */
   text-align: left;
   /* Add background-color */
-  background-color: aliceblue;
+  /* background-color: aliceblue; */
   /* test flex shorthend */
   flex-wrap: wrap;
 }
@@ -61,13 +62,16 @@ main {
   font-size: var(--table-heading-font-size);
   color: var(--main-font-color);
   margin-bottom: 2rem;
+  color: var(--main-font-color);
   text-align: center;
+  padding-bottom: 10px;
+  border-bottom: 3px solid rgba(34, 40, 49, 0.616);
 }
 
 main > section {
-  /* Test */
-  background-color: #777;
   flex-grow: 1;
+  /* Test */
+  /* background-color: #777; */
 }
 
 .tasks-list {

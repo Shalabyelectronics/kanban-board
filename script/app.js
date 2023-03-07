@@ -19,7 +19,7 @@ class AddTasks {
     const parentList = document.getElementById(addBtnParentId);
     creatLi.innerHTML = `
     <input class="task-input" type="text" placeholder="Task" />
-    <span class="action-icon edit-task">
+    <span for='input-field' class="action-icon edit-task">
         <i class="fa-regular fa-pen-to-square"></i>
     </span>
     <span class="action-icon remove-task">

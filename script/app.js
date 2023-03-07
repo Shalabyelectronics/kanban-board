@@ -13,6 +13,16 @@ class AddTasks {
       if (e.key !== "Enter") return;
       e.target.disabled = true;
     });
+    return inputField;
+  };
+
+  editInputField = (inputFieldElement) => {
+    const editElement = inputFieldElement.nextElementSibling;
+
+    editElement.addEventListener("click", (e) => {
+      const input = e.target.parentElement.firstElementChild;
+      input.disabled = false;
+    });
   };
 
   editTask = (editIconClassName) => {
@@ -29,7 +39,8 @@ class AddTasks {
         <i class="action-icon remove-task fa-sharp fa-solid fa-trash"></i>
     `;
     parentList.append(creatLi);
-    this.lockInput(creatLi);
+    const inputField = this.lockInput(creatLi);
+    this.editInputField(inputField);
   };
 }
 

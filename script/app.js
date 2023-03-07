@@ -7,13 +7,23 @@ class AddTasks {
     );
   }
 
-  lockInput = (parenetElement) => {
+  lockInputByEnter = (parenetElement) => {
     const inputField = parenetElement.firstElementChild;
     inputField.addEventListener("keypress", (e) => {
       if (e.key !== "Enter") return;
       e.target.disabled = true;
     });
     return inputField;
+  };
+
+  lockInputByBodyClick = () => {
+    const allInpust = document.querySelectorAll("input");
+    document.body.addEventListener("click", (e) => {
+      if (["button", "i", "input"].includes(e.target.localName)) return;
+      allInpust.forEach((input) => {
+        input.disabled = true;
+      });
+    });
   };
 
   editInputField = (inputFieldElement) => {
@@ -39,8 +49,9 @@ class AddTasks {
         <i class="action-icon remove-task fa-sharp fa-solid fa-trash"></i>
     `;
     parentList.append(creatLi);
-    const inputField = this.lockInput(creatLi);
+    const inputField = this.lockInputByEnter(creatLi);
     this.editInputField(inputField);
+    this.lockInputByBodyClick();
   };
 }
 

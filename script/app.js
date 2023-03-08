@@ -1,72 +1,118 @@
-class AddTasks {
-  constructor(addBtnClassName) {
-    this.addBtnId = addBtnClassName;
-    this.allAddBtns = document.querySelectorAll(this.addBtnId);
-    this.allAddBtns.forEach((btn) =>
-      btn.addEventListener("click", this.creatTaskEl.bind(this, btn))
-    );
+class CreatTaskComponent {
+  constructor(type, id) {
+    this.type = type;
+    this.parantTasksList = document.querySelector(`#${this.type}-tasks ul`);
+    this.taskId = id;
+  }
+  creatTaskElement = () => {
+    const creatTaskEl = document.createElement("li");
+    creatTaskEl.id = this.taskId;
+    creatTaskEl.setAttribute("draggable", "true");
+    creatTaskEl.innerHTML = `
+    <div class="task-container">
+    <input class="task-input" type="text" placeholder="Task" required/>
+    <i class="action-icon edit-task fa-regular fa-pen-to-square"></i>
+    <i class="action-icon remove-task fa-sharp fa-solid fa-trash"></i>
+    </div>
+    <div class='error-box'>
+    <small class="error-message"> Please Add a task </small>
+    </div>
+    `;
+    this.parantTasksList.append(creatTaskEl);
+    return creatTaskEl;
+  };
+}
+
+class TaskItem {
+  constructor(type, id) {
+    this.type = type;
+    this.taskID = id;
+    this.taskElement = new CreatTaskComponent(
+      this.type,
+      this.taskID
+    ).creatTaskElement();
+    this.lockInputByEnter();
+    this.lockInputByBodyClick();
+    this.editInputField();
+    this.removeElement();
   }
 
-  lockInputByEnter = (parenetElement) => {
-    const inputField = parenetElement.firstElementChild;
+  // 1
+  lockInputByEnter = () => {
+    const inputField = this.taskElement.querySelector("input");
+    const error = this.taskElement.querySelector(".error-message");
     inputField.addEventListener("keypress", (e) => {
       if (e.key !== "Enter") return;
-      e.target.disabled = true;
+      if (e.target.value.trim()) {
+        e.target.disabled = true;
+        error.classList.remove("show");
+        inputField.classList.remove("input-error");
+      } else {
+        error.classList.add("show");
+        inputField.classList.add("input-error");
+      }
     });
-    return inputField;
   };
 
+  // 2
   lockInputByBodyClick = () => {
-    const allInpust = document.querySelectorAll("input");
+    const inputField = this.taskElement.querySelector("input");
+    const error = this.taskElement.querySelector(".error-message");
     document.body.addEventListener("click", (e) => {
       if (["button", "i", "input"].includes(e.target.localName)) return;
-      allInpust.forEach((input) => {
-        input.disabled = true;
-      });
+      if (inputField.value.trim()) {
+        inputField.disabled = true;
+        error.classList.remove("show");
+        inputField.classList.remove("input-error");
+      } else {
+        error.classList.add("show");
+        inputField.classList.add("input-error");
+      }
     });
   };
 
-  editInputField = (inputFieldElement) => {
-    const editElement = inputFieldElement.nextElementSibling;
-
-    editElement.addEventListener("click", (e) => {
-      const input = e.target.parentElement.firstElementChild;
+  // 3
+  editInputField = () => {
+    const editElement = this.taskElement.querySelector(".edit-task");
+    editElement.addEventListener("click", () => {
+      const input = this.taskElement.querySelector("input");
       input.disabled = false;
     });
-    return editElement;
   };
 
-  removeElement = (editElement) => {
-    const removeElement = editElement.nextElementSibling;
-    removeElement.addEventListener("click", (e) => {
-      e.target.parentElement.remove();
+  // 4
+  removeElement = () => {
+    const removeElement = this.taskElement.querySelector(".remove-task");
+    removeElement.addEventListener("click", () => {
+      this.taskElement.remove();
     });
   };
+}
 
-  editTask = (editIconClassName) => {
-    const editIconEle = document.querySelector(editIconClassName);
-  };
+class TasksList {
+  tasks = [];
+  constructor(type) {
+    this.type = type;
+    this.parantTasksList = document.querySelector(`#${this.type}-tasks`);
+    this.taskList = this.parantTasksList.querySelector("ul");
+    this.taskAddBtn = this.parantTasksList.querySelector("button");
+    this.taskAddBtn.addEventListener("click", this.creatTaskEl.bind(this));
+  }
 
-  creatTaskEl = (addBtn) => {
-    const creatLi = document.createElement("li");
-    const addBtnParentId = addBtn.parentElement.querySelector("ul").id;
-    const parentList = document.getElementById(addBtnParentId);
-    creatLi.innerHTML = `
-    <input class="task-input" type="text" placeholder="Task" />
-        <i class="action-icon edit-task fa-regular fa-pen-to-square"></i>
-        <i class="action-icon remove-task fa-sharp fa-solid fa-trash"></i>
-    `;
-    parentList.append(creatLi);
-    const inputField = this.lockInputByEnter(creatLi);
-    const editElement = this.editInputField(inputField);
-    this.removeElement(editElement);
-    this.lockInputByBodyClick();
+  generateRandomID = () => `task-${Math.floor(Math.random() * 1000000)}`;
+
+  creatTaskEl = () => {
+    const taskID = this.generateRandomID();
+    this.tasks.push(taskID);
+    new TaskItem(this.type, taskID);
   };
 }
 
 class App {
   static init() {
-    new AddTasks(".add-task-btn");
+    const startedTasksList = new TasksList("started");
+    const progressTasksList = new TasksList("progress");
+    const completedTasksList = new TasksList("completed");
   }
 }
 

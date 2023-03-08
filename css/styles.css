@@ -58,7 +58,7 @@ main {
   flex-wrap: wrap;
 }
 
-.container > .table-heading {
+.table-heading {
   font-size: var(--table-heading-font-size);
   color: var(--main-font-color);
   margin-bottom: 2rem;
@@ -68,6 +68,21 @@ main {
   border-bottom: 3px solid rgba(34, 40, 49, 0.616);
 }
 
+.error-box {
+  text-align: center;
+  padding: 0.2rem 0;
+}
+
+.error-message {
+  visibility: hidden;
+  text-align: center;
+  font-size: 1.5rem;
+  color: rgba(224, 13, 27, 0.8);
+}
+
+.show {
+  visibility: visible;
+}
 main > section {
   flex-grow: 1;
   /* Test */
@@ -83,7 +98,7 @@ main > section {
   gap: 1rem;
 }
 
-.tasks-list > li {
+.task-container {
   display: flex;
   width: 100%;
   align-items: center;
@@ -132,7 +147,11 @@ main > section {
   font-size: var(--input-field-font-size);
 }
 .task-input:focus {
-  box-shadow: 0 0 10px rgba(130, 239, 245, 0.541);
+  box-shadow: 0 0 5px 3px rgba(130, 239, 245, 0.541);
+}
+
+.input-error:invalid {
+  box-shadow: 0 0 5px 3px rgba(245, 0, 0, 0.705);
 }
 
 .add-task-btn {

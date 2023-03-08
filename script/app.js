@@ -143,7 +143,6 @@ class TasksList {
     if (this.tasks.find((task) => task.id === taskID)) {
       this.tasks = this.tasks.filter((task) => task.id !== taskID);
       this.saveTasksToLocalStorage();
-      DataStorage.printAllTasks();
     }
   };
 
@@ -156,7 +155,6 @@ class TasksList {
       }
     });
     this.saveTasksToLocalStorage();
-    DataStorage.printAllTasks();
   };
 
   saveTasksToLocalStorage = () => {
@@ -183,8 +181,6 @@ class TasksList {
     });
   };
 
-  connectDrag;
-
   creatTaskEl = () => {
     const taskID = this.generateRandomID();
     this.tasks.push({ id: taskID, input: "" });
@@ -194,7 +190,6 @@ class TasksList {
       this.removeTaskHandler.bind(this),
       this.updateTaskValue.bind(this)
     );
-    DataStorage.printAllTasks();
   };
 }
 

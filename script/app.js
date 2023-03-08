@@ -4,13 +4,13 @@ class CreatTaskComponent {
     this.parantTasksList = document.querySelector(`#${this.type}-tasks ul`);
     this.taskId = id;
   }
-  creatTaskElement = () => {
+  creatTaskElement = (taskValue) => {
     const creatTaskEl = document.createElement("li");
     creatTaskEl.id = this.taskId;
     creatTaskEl.setAttribute("draggable", "true");
     creatTaskEl.innerHTML = `
     <div class="task-container">
-    <input class="task-input" type="text" placeholder="Task" required/>
+    <input class="task-input" type="text" placeholder="Task" value='${taskValue}'  required/>
     <i class="action-icon edit-task fa-regular fa-pen-to-square"></i>
     <i class="action-icon remove-task fa-sharp fa-solid fa-trash"></i>
     </div>
@@ -23,21 +23,29 @@ class CreatTaskComponent {
   };
 }
 
+class DataStorage {
+  static allData(started, progress, completed) {
+    console.log(started, progress, completed);
+  }
+}
+
 class TaskItem {
   constructor(
     type,
     id,
     removeTaskHandler,
     updateTaskValue,
+    taskValue = "",
     submitTaskstatus = false
   ) {
     this.type = type;
     this.taskID = id;
     this.submitTask = submitTaskstatus;
+    this.taskValue = taskValue;
     this.taskElement = new CreatTaskComponent(
       this.type,
       this.taskID
-    ).creatTaskElement();
+    ).creatTaskElement(this.taskValue);
     this.updateTaskValueHandler = updateTaskValue;
     this.removeTaskHandler = removeTaskHandler;
     this.lockInputByEnter();
@@ -45,14 +53,6 @@ class TaskItem {
     this.editInputField();
     this.removeElement();
   }
-
-  saveTaskToLocalStorage = () => {
-    const taskInput = this.taskElement.querySelector("input");
-    localStorage.setItem(
-      `${this.type}Tasks`,
-      JSON.stringify([{ id: this.taskID, taskValue: taskInput.value }])
-    );
-  };
 
   // 1
   lockInputByEnter = () => {
@@ -66,7 +66,6 @@ class TaskItem {
         inputField.classList.remove("input-error");
         if (this.submitTask) return;
         this.updateTaskValueHandler(this.taskElement, this.taskID);
-        this.saveTaskToLocalStorage();
         this.submitTask = true;
       } else {
         error.classList.add("show");
@@ -122,6 +121,7 @@ class TasksList {
     this.taskList = this.parantTasksList.querySelector("ul");
     this.taskAddBtn = this.parantTasksList.querySelector("button");
     this.taskAddBtn.addEventListener("click", this.creatTaskEl.bind(this));
+    this.getTasksFromLocalStorage();
   }
 
   generateRandomID = () => `task-${Math.floor(Math.random() * 1000000)}`;
@@ -129,6 +129,7 @@ class TasksList {
   removeTaskHandler = (taskID) => {
     if (this.tasks.find((task) => task.id === taskID)) {
       this.tasks = this.tasks.filter((task) => task.id !== taskID);
+      this.saveTasksToLocalStorage();
     }
   };
 
@@ -140,10 +141,33 @@ class TasksList {
         task.input = inputField.value;
       }
     });
-    console.log(this.tasks);
+    this.saveTasksToLocalStorage();
   };
 
-  saveTaskToLocalStorage = () => {};
+  saveTasksToLocalStorage = () => {
+    if (!this.tasks) return;
+    localStorage.setItem(
+      `${this.type}TasksData`,
+      JSON.stringify([...this.tasks])
+    );
+  };
+
+  getTasksFromLocalStorage = () => {
+    const tasksData = JSON.parse(localStorage.getItem(`${this.type}TasksData`));
+    this.tasks = [...tasksData];
+    if (!tasksData) return;
+    this.tasks.forEach((task) => {
+      new TaskItem(
+        this.type,
+        task.id,
+        this.removeTaskHandler.bind(this),
+        this.updateTaskValue.bind(this),
+        task.input
+      );
+    });
+  };
+
+  recreateTasksFromStorage = () => {};
 
   creatTaskEl = () => {
     const taskID = this.generateRandomID();
@@ -162,6 +186,11 @@ class App {
     const startedTasksList = new TasksList("started");
     const progressTasksList = new TasksList("progress");
     const completedTasksList = new TasksList("completed");
+    DataStorage.allData(
+      startedTasksList.tasks,
+      progressTasksList.tasks,
+      completedTasksList.tasks
+    );
   }
 }
 

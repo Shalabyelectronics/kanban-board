@@ -24,13 +24,21 @@ class CreatTaskComponent {
 }
 
 class TaskItem {
-  constructor(type, id, removeTaskHandler) {
+  constructor(
+    type,
+    id,
+    removeTaskHandler,
+    updateTaskValue,
+    submitTaskstatus = false
+  ) {
     this.type = type;
     this.taskID = id;
+    this.submitTask = submitTaskstatus;
     this.taskElement = new CreatTaskComponent(
       this.type,
       this.taskID
     ).creatTaskElement();
+    this.updateTaskValueHandler = updateTaskValue;
     this.removeTaskHandler = removeTaskHandler;
     this.lockInputByEnter();
     this.lockInputByBodyClick();
@@ -56,7 +64,10 @@ class TaskItem {
         e.target.disabled = true;
         error.classList.remove("show");
         inputField.classList.remove("input-error");
+        if (this.submitTask) return;
+        this.updateTaskValueHandler(this.taskElement, this.taskID);
         this.saveTaskToLocalStorage();
+        this.submitTask = true;
       } else {
         error.classList.add("show");
         inputField.classList.add("input-error");
@@ -74,6 +85,9 @@ class TaskItem {
         inputField.disabled = true;
         error.classList.remove("show");
         inputField.classList.remove("input-error");
+        if (this.submitTask) return;
+        this.updateTaskValueHandler(this.taskElement, this.taskID);
+        this.submitTask = true;
       } else {
         error.classList.add("show");
         inputField.classList.add("input-error");
@@ -118,11 +132,28 @@ class TasksList {
     }
   };
 
+  updateTaskValue = (taskElement, taskID) => {
+    if (!this.tasks) return;
+    const inputField = taskElement.querySelector("input");
+    this.tasks.forEach((task) => {
+      if (task.id === taskID) {
+        task.input = inputField.value;
+      }
+    });
+    console.log(this.tasks);
+  };
+
+  saveTaskToLocalStorage = () => {};
+
   creatTaskEl = () => {
     const taskID = this.generateRandomID();
     this.tasks.push({ id: taskID, input: "" });
-    new TaskItem(this.type, taskID, this.removeTaskHandler.bind(this));
-    console.log(this.tasks);
+    new TaskItem(
+      this.type,
+      taskID,
+      this.removeTaskHandler.bind(this),
+      this.updateTaskValue.bind(this)
+    );
   };
 }
 

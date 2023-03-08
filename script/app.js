@@ -27,7 +27,16 @@ class CreatTaskComponent {
 
 class DataStorage {
   static allData(started, progress, completed) {
-    console.log(started, progress, completed);
+    this.startedTasks = started;
+    this.progressTasks = progress;
+    this.completedTasks = completed;
+  }
+  static printAllTasks() {
+    console.info(
+      this.startedTasks.tasks,
+      this.progressTasks.tasks,
+      this.completedTasks.tasks
+    );
   }
 }
 
@@ -134,6 +143,7 @@ class TasksList {
     if (this.tasks.find((task) => task.id === taskID)) {
       this.tasks = this.tasks.filter((task) => task.id !== taskID);
       this.saveTasksToLocalStorage();
+      DataStorage.printAllTasks();
     }
   };
 
@@ -146,6 +156,7 @@ class TasksList {
       }
     });
     this.saveTasksToLocalStorage();
+    DataStorage.printAllTasks();
   };
 
   saveTasksToLocalStorage = () => {
@@ -172,7 +183,7 @@ class TasksList {
     });
   };
 
-  recreateTasksFromStorage = () => {};
+  connectDrag;
 
   creatTaskEl = () => {
     const taskID = this.generateRandomID();
@@ -183,6 +194,7 @@ class TasksList {
       this.removeTaskHandler.bind(this),
       this.updateTaskValue.bind(this)
     );
+    DataStorage.printAllTasks();
   };
 }
 
@@ -192,9 +204,9 @@ class App {
     const progressTasksList = new TasksList("progress");
     const completedTasksList = new TasksList("completed");
     DataStorage.allData(
-      startedTasksList.tasks,
-      progressTasksList.tasks,
-      completedTasksList.tasks
+      startedTasksList,
+      progressTasksList,
+      completedTasksList
     );
   }
 }

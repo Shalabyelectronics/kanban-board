@@ -24,13 +24,14 @@ class CreatTaskComponent {
 }
 
 class TaskItem {
-  constructor(type, id) {
+  constructor(type, id, removeTaskHandler) {
     this.type = type;
     this.taskID = id;
     this.taskElement = new CreatTaskComponent(
       this.type,
       this.taskID
     ).creatTaskElement();
+    this.removeTaskHandler = removeTaskHandler;
     this.lockInputByEnter();
     this.lockInputByBodyClick();
     this.editInputField();
@@ -85,6 +86,7 @@ class TaskItem {
     const removeElement = this.taskElement.querySelector(".remove-task");
     removeElement.addEventListener("click", () => {
       this.taskElement.remove();
+      this.removeTaskHandler(this.taskID);
     });
   };
 }
@@ -101,10 +103,17 @@ class TasksList {
 
   generateRandomID = () => `task-${Math.floor(Math.random() * 1000000)}`;
 
+  removeTasksHandler(taskID) {
+    if (this.tasks.find((id) => id === taskID)) {
+      this.tasks = this.tasks.filter((id) => id !== taskID);
+    }
+  }
+
   creatTaskEl = () => {
     const taskID = this.generateRandomID();
     this.tasks.push(taskID);
-    new TaskItem(this.type, taskID);
+    new TaskItem(this.type, taskID, this.removeTasksHandler.bind(this));
+    console.log(this.tasks);
   };
 }
 

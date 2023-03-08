@@ -65,6 +65,7 @@ class TaskItem {
     this.lockInputByBodyClick();
     this.editInputField();
     this.removeElement();
+    this.connectDrag();
   }
 
   // 1
@@ -122,6 +123,14 @@ class TaskItem {
     removeElement.addEventListener("click", () => {
       this.taskElement.remove();
       this.removeTaskHandler(this.taskID);
+    });
+  };
+
+  connectDrag = () => {
+    const taskItem = document.getElementById(this.taskID);
+    taskItem.addEventListener("dragstart", (event) => {
+      event.dataTransfer.setData("text/plain", this.taskID);
+      event.dataTransfer.effectAllowed = "move";
     });
   };
 }

@@ -38,6 +38,14 @@ class TaskItem {
     this.removeElement();
   }
 
+  saveTaskToLocalStorage = () => {
+    const taskInput = this.taskElement.querySelector("input");
+    localStorage.setItem(
+      `${this.type}Tasks`,
+      JSON.stringify([{ id: this.taskID, taskValue: taskInput.value }])
+    );
+  };
+
   // 1
   lockInputByEnter = () => {
     const inputField = this.taskElement.querySelector("input");
@@ -48,6 +56,7 @@ class TaskItem {
         e.target.disabled = true;
         error.classList.remove("show");
         inputField.classList.remove("input-error");
+        this.saveTaskToLocalStorage();
       } else {
         error.classList.add("show");
         inputField.classList.add("input-error");
@@ -103,16 +112,16 @@ class TasksList {
 
   generateRandomID = () => `task-${Math.floor(Math.random() * 1000000)}`;
 
-  removeTasksHandler(taskID) {
-    if (this.tasks.find((id) => id === taskID)) {
-      this.tasks = this.tasks.filter((id) => id !== taskID);
+  removeTaskHandler = (taskID) => {
+    if (this.tasks.find((task) => task.id === taskID)) {
+      this.tasks = this.tasks.filter((task) => task.id !== taskID);
     }
-  }
+  };
 
   creatTaskEl = () => {
     const taskID = this.generateRandomID();
-    this.tasks.push(taskID);
-    new TaskItem(this.type, taskID, this.removeTasksHandler.bind(this));
+    this.tasks.push({ id: taskID, input: "" });
+    new TaskItem(this.type, taskID, this.removeTaskHandler.bind(this));
     console.log(this.tasks);
   };
 }

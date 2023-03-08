@@ -4,13 +4,15 @@ class CreatTaskComponent {
     this.parantTasksList = document.querySelector(`#${this.type}-tasks ul`);
     this.taskId = id;
   }
-  creatTaskElement = (taskValue) => {
+  creatTaskElement = (taskValue, isDisabled = false) => {
     const creatTaskEl = document.createElement("li");
     creatTaskEl.id = this.taskId;
     creatTaskEl.setAttribute("draggable", "true");
     creatTaskEl.innerHTML = `
     <div class="task-container">
-    <input class="task-input" type="text" placeholder="Task" value='${taskValue}'  required/>
+    <input class="task-input" type="text" placeholder="Task" value='${taskValue}' ${
+      isDisabled ? "disabled" : ""
+    } required/>
     <i class="action-icon edit-task fa-regular fa-pen-to-square"></i>
     <i class="action-icon remove-task fa-sharp fa-solid fa-trash"></i>
     </div>
@@ -36,16 +38,18 @@ class TaskItem {
     removeTaskHandler,
     updateTaskValue,
     taskValue = "",
+    isDisabled = false,
     submitTaskstatus = false
   ) {
     this.type = type;
     this.taskID = id;
     this.submitTask = submitTaskstatus;
     this.taskValue = taskValue;
+    this.isDisabled = isDisabled;
     this.taskElement = new CreatTaskComponent(
       this.type,
       this.taskID
-    ).creatTaskElement(this.taskValue);
+    ).creatTaskElement(this.taskValue, this.isDisabled);
     this.updateTaskValueHandler = updateTaskValue;
     this.removeTaskHandler = removeTaskHandler;
     this.lockInputByEnter();
@@ -156,14 +160,14 @@ class TasksList {
     const tasksData = JSON.parse(localStorage.getItem(`${this.type}TasksData`));
     if (!tasksData) return;
     this.tasks = [...tasksData];
-    if (!tasksData) return;
     this.tasks.forEach((task) => {
       new TaskItem(
         this.type,
         task.id,
         this.removeTaskHandler.bind(this),
         this.updateTaskValue.bind(this),
-        task.input
+        task.input,
+        true
       );
     });
   };

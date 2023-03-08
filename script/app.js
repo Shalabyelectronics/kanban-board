@@ -154,6 +154,7 @@ class TasksList {
 
   getTasksFromLocalStorage = () => {
     const tasksData = JSON.parse(localStorage.getItem(`${this.type}TasksData`));
+    if (!tasksData) return;
     this.tasks = [...tasksData];
     if (!tasksData) return;
     this.tasks.forEach((task) => {

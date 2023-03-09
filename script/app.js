@@ -256,6 +256,44 @@ class App {
       progressTasksList,
       completedTasksList
     );
+    this.projectTitle();
+    this.getProjectTitle();
+  }
+  static projectTitle() {
+    const header = document.querySelector("header");
+    const mainHeadingInput = header.querySelector("textarea");
+    const editBtn = mainHeadingInput.nextElementSibling;
+    const error = header.querySelector(".error-message");
+    editBtn.addEventListener("click", () => {
+      mainHeadingInput.disabled = false;
+      mainHeadingInput.classList.add("active-box-shadow");
+    });
+    mainHeadingInput.addEventListener("keypress", (event) => {
+      console.log(event.key === "Enter");
+      if (event.key !== "Enter") return;
+      if (mainHeadingInput.value.trim()) {
+        mainHeadingInput.disabled = true;
+        error.classList.remove("show");
+        mainHeadingInput.classList.remove("input-error");
+        mainHeadingInput.classList.remove("active-box-shadow");
+        this.saveProjectTitle(mainHeadingInput.value.trim());
+      } else {
+        mainHeadingInput.classList.remove("active-box-shadow");
+        mainHeadingInput.classList.add("input-error");
+        error.classList.add("show");
+      }
+    });
+  }
+
+  static saveProjectTitle(title) {
+    localStorage.setItem("projectTitle", title);
+  }
+
+  static getProjectTitle() {
+    const projecTtitle = localStorage.getItem("projectTitle");
+    if (!projecTtitle) return;
+    const mainHeadingInput = document.querySelector("textarea");
+    mainHeadingInput.value = projecTtitle;
   }
 }
 

@@ -35,13 +35,45 @@ body {
 header {
   margin: 10rem 0 5rem 0;
   padding: 0 var(--edg-spacing);
+  position: relative;
+  /* width: 120rem; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-header > .main-heading {
+.edit-titleInput {
+  position: absolute;
+  opacity: 0.5;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  transition: opacity 1s;
+}
+.edit-titleInput:hover {
+  opacity: 1;
+}
+.main-heading {
   font-size: var(--main-heading-font-size);
   color: var(--main-font-color);
   text-align: center;
+  background-color: var(--background-color);
+  border: none;
+  outline: 0;
+  caret-color: #eee;
+  font-weight: 700;
+  font-family: inherit;
+  margin-bottom: 5px;
 }
 
+/* .main-heading:focus {
+  box-shadow: 0 0 5px 3px rgba(130, 239, 245, 0.541);
+} */
+/* Will add it also in edit btn icon later */
+.active-box-shadow {
+  box-shadow: 0 0 5px 3px rgba(130, 239, 245, 0.541);
+}
 main {
   display: flex;
   justify-content: space-around;
@@ -146,13 +178,13 @@ main > section {
   border: none;
   outline: none;
   caret-color: var(--background-color);
-  font-size: var(--input-field-font-size);
+  font-family: inherit;
 }
 .task-input:focus {
   box-shadow: 0 0 5px 3px rgba(130, 239, 245, 0.541);
 }
 
-.input-error:invalid {
+.input-error {
   box-shadow: 0 0 5px 3px rgba(245, 0, 0, 0.705);
 }
 

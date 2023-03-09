@@ -194,6 +194,11 @@ class TasksList {
     );
   };
 
+  clearTaskListData = () => {
+    this.tasks = [];
+    localStorage.removeItem(`${this.type}TasksData`);
+  };
+
   getTasksFromLocalStorage = () => {
     const tasksData = JSON.parse(localStorage.getItem(`${this.type}TasksData`));
     if (!tasksData) return;
@@ -252,17 +257,18 @@ class TasksList {
 
 class App {
   static init() {
-    const startedTasksList = new TasksList("started");
-    const progressTasksList = new TasksList("progress");
-    const completedTasksList = new TasksList("completed");
+    this.startedTasksList = new TasksList("started");
+    this.progressTasksList = new TasksList("progress");
+    this.completedTasksList = new TasksList("completed");
     this.submitProjectTitle = true;
     SwitchTasks.tasksListObjects(
-      startedTasksList,
-      progressTasksList,
-      completedTasksList
+      this.startedTasksList,
+      this.progressTasksList,
+      this.completedTasksList
     );
     this.projectTitle();
     this.getProjectTitle();
+    this.projectDeletion();
   }
   static projectTitle() {
     const header = document.querySelector("header");
@@ -307,6 +313,36 @@ class App {
         mainHeadingInput.classList.add("input-error");
         this.submitProjectTitle = false;
       }
+    });
+  }
+
+  static removeProjectTitle() {
+    localStorage.removeItem("projectTitle");
+  }
+
+  static projectDeletion() {
+    const confirmationBox = document.querySelector(".deletion-confirm-box");
+    const yesBtn = confirmationBox.querySelector(".btn:first-child");
+    const noBtn = confirmationBox.querySelector(".btn:last-child");
+    const header = document.querySelector("header");
+    const deleteIcon = header.querySelector(".remove-project");
+    const dropLayer = document.querySelector(".drop-layer");
+    deleteIcon.addEventListener("click", () => {
+      confirmationBox.classList.add("drop-deletion-confirm");
+      dropLayer.classList.add("active-drop-layer");
+    });
+    noBtn.addEventListener("click", () => {
+      confirmationBox.classList.remove("drop-deletion-confirm");
+      dropLayer.classList.remove("active-drop-layer");
+    });
+    yesBtn.addEventListener("click", () => {
+      this.startedTasksList.clearTaskListData();
+      this.progressTasksList.clearTaskListData();
+      this.completedTasksList.clearTaskListData();
+      this.removeProjectTitle();
+      confirmationBox.classList.remove("drop-deletion-confirm");
+      dropLayer.classList.remove("active-drop-layer");
+      window.location.reload();
     });
   }
 

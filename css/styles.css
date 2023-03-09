@@ -16,6 +16,8 @@ body {
   align-items: center;
   min-height: 100vh;
   background-color: var(--background-color);
+  position: relative;
+  overflow: hidden;
 }
 
 :root {
@@ -31,6 +33,55 @@ body {
   --background-color: #00adb5;
   --edg-spacing: 1rem;
   --footer-font-size: 1.2rem;
+}
+.drop-layer {
+  background-color: rgba(255, 255, 255, 0.753);
+  position: absolute;
+  top: -100%;
+  width: 100%;
+  height: 100vh;
+  z-index: 999;
+  filter: blur(10px);
+  transition: top 0.3s;
+}
+.active-drop-layer {
+  top: 0;
+}
+.deletion-confirm-box {
+  position: absolute;
+  background-color: #9d2020;
+  z-index: 1000;
+  /* Return it to -15% after finishing dropdown layer */
+  top: -15%;
+  margin: 0 5px;
+  color: #fff;
+  padding: 1rem;
+  border-radius: 10px;
+  font-size: 1.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  border: 2px dashed #fff;
+  transition: top 0.5s;
+}
+.drop-deletion-confirm {
+  top: 10%;
+}
+.deletion-confirm-box > p {
+  text-align: center;
+  border-bottom: 2px solid #ffffffa8;
+  padding-bottom: 5px;
+}
+.action-box {
+  display: flex;
+  gap: 20px;
+}
+.btn {
+  font-size: inherit;
+  cursor: pointer;
+  padding: 0.3rem 1rem;
 }
 header {
   margin: 10rem 0 5rem 0;

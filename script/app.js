@@ -251,6 +251,7 @@ class App {
     const startedTasksList = new TasksList("started");
     const progressTasksList = new TasksList("progress");
     const completedTasksList = new TasksList("completed");
+    this.submitProjectTitle = true;
     SwitchTasks.tasksListObjects(
       startedTasksList,
       progressTasksList,
@@ -281,6 +282,26 @@ class App {
         mainHeadingInput.classList.remove("active-box-shadow");
         mainHeadingInput.classList.add("input-error");
         error.classList.add("show");
+        this.submitProjectTitle = false;
+      }
+    });
+
+    document.body.addEventListener("click", (e) => {
+      if (["button", "i", "input", "textarea"].includes(e.target.localName))
+        return;
+      if (mainHeadingInput.value.trim()) {
+        mainHeadingInput.disabled = true;
+        error.classList.remove("show");
+        mainHeadingInput.classList.remove("input-error");
+        mainHeadingInput.classList.remove("active-box-shadow");
+        this.saveProjectTitle(mainHeadingInput.value.trim());
+        if (this.submitTask) return;
+        this.submitProjectTitle = true;
+      } else {
+        mainHeadingInput.classList.remove("active-box-shadow");
+        error.classList.add("show");
+        mainHeadingInput.classList.add("input-error");
+        this.submitProjectTitle = false;
       }
     });
   }

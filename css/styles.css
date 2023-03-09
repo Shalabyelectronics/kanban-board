@@ -42,15 +42,23 @@ header {
   justify-content: center;
   align-items: center;
 }
+.remove-project,
 .edit-titleInput {
   position: absolute;
   opacity: 0.5;
-  right: -20px;
-  top: 50%;
-  transform: translateY(-50%);
+  /* transform: translate(-50%, 50%); */
   cursor: pointer;
-  transition: opacity 1s;
+  transition: opacity 0.5s;
 }
+.edit-titleInput {
+  right: 40px;
+  bottom: 0;
+}
+.remove-project {
+  right: 10px;
+  bottom: 0;
+}
+.remove-project:hover,
 .edit-titleInput:hover {
   opacity: 1;
 }
@@ -64,6 +72,9 @@ header {
   caret-color: #eee;
   font-weight: 700;
   font-family: inherit;
+  min-height: 75px;
+  width: 100%;
+  resize: none;
   margin-bottom: 5px;
 }
 

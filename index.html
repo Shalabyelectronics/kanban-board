@@ -16,12 +16,21 @@
     <title>Kanban Board</title>
   </head>
   <body>
+    <div class="deletion-confirm-box">
+      <p>Do you want to delete this project?</p>
+      <small>Note: It will Delete All Tasks as well.</small>
+      <div class="action-box">
+        <button class="btn">Yes</button>
+        <button class="btn">No</button>
+      </div>
+    </div>
     <header>
-      <textarea class="main-heading" rows="2" cols="10" disabled> </textarea>
+      <textarea class="main-heading" disabled> </textarea>
       <i
         class="edit-titleInput fas fa-regular fa-pen-to-square"
         title="You can Edit the Project name 😃"
       ></i>
+      <i class="remove-project fa-sharp fa-solid fa-trash"></i>
       <div class="error-box">
         <small class="error-message">Please Add a Project title</small>
       </div>

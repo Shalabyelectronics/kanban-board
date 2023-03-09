@@ -95,6 +95,7 @@ main > section {
   position: relative;
   flex-direction: column;
   flex: 1 1 50rem;
+  padding: 5px;
   gap: 1rem;
 }
 
@@ -184,4 +185,8 @@ footer > small {
 #author:visited {
   text-decoration: none;
   color: var(--main-font-color);
+}
+
+.dropable {
+  background: #6dd4da;
 }

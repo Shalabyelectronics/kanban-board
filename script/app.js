@@ -25,18 +25,33 @@ class CreatTaskComponent {
   };
 }
 
-class DataStorage {
-  static allData(started, progress, completed) {
+class SwitchTasks {
+  static tasksListObjects(started, progress, completed) {
     this.startedTasks = started;
     this.progressTasks = progress;
     this.completedTasks = completed;
   }
-  static printAllTasks() {
-    console.info(
-      this.startedTasks.tasks,
-      this.progressTasks.tasks,
-      this.completedTasks.tasks
-    );
+  static DataOfTaks() {
+    const data = {
+      started: this.startedTasks,
+      progress: this.progressTasks,
+      completed: this.completedTasks,
+    };
+    return data;
+  }
+  static switchTask(taskId = null, to = null) {
+    const getTasksData = this.DataOfTaks();
+    for (const taskArr in getTasksData) {
+      for (const taskObj of getTasksData[taskArr].tasks) {
+        if (taskObj.id === taskId) {
+          getTasksData[taskArr].removeTaskHandler(taskId);
+          getTasksData[taskArr].saveTasksToLocalStorage();
+          getTasksData[to].tasks.push(taskObj);
+          getTasksData[to].saveTasksToLocalStorage();
+          console.log(`Task Id ${taskId} most go from ${taskArr} to ${to}`);
+        }
+      }
+    }
   }
 }
 
@@ -144,6 +159,7 @@ class TasksList {
     this.taskAddBtn = this.parantTasksList.querySelector("button");
     this.taskAddBtn.addEventListener("click", this.creatTaskEl.bind(this));
     this.getTasksFromLocalStorage();
+    this.connectDroppable();
   }
 
   generateRandomID = () => `task-${Math.floor(Math.random() * 1000000)}`;
@@ -200,6 +216,34 @@ class TasksList {
       this.updateTaskValue.bind(this)
     );
   };
+
+  connectDroppable = () => {
+    this.taskList.addEventListener("dragenter", (event) => {
+      if (event.dataTransfer.types[0] !== "text/plain") return;
+      event.preventDefault();
+      this.taskList.classList.add("dropable");
+    });
+    this.taskList.addEventListener("dragover", (event) => {
+      if (event.dataTransfer.types[0] !== "text/plain") return;
+      event.preventDefault();
+    });
+    this.taskList.addEventListener("dragleave", (event) => {
+      if (
+        event.relatedTarget.closest(`#${this.type}-tasks ul`) === this.taskList
+      )
+        return;
+      this.taskList.classList.remove("dropable");
+    });
+    this.taskList.addEventListener("drop", (event) => {
+      const taskID = event.dataTransfer.getData("text/plain");
+      const taskItem = document.getElementById(taskID);
+      this.taskList.append(taskItem);
+      this.taskList.classList.remove("dropable");
+      event.preventDefault();
+      if (this.tasks.find((task) => task.id === taskID)) return;
+      SwitchTasks.switchTask(taskID, this.type);
+    });
+  };
 }
 
 class App {
@@ -207,7 +251,7 @@ class App {
     const startedTasksList = new TasksList("started");
     const progressTasksList = new TasksList("progress");
     const completedTasksList = new TasksList("completed");
-    DataStorage.allData(
+    SwitchTasks.tasksListObjects(
       startedTasksList,
       progressTasksList,
       completedTasksList

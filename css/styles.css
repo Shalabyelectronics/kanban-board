@@ -45,7 +45,7 @@ header {
 .edit-titleInput {
   position: absolute;
   opacity: 0.5;
-  right: 20px;
+  right: -20px;
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;

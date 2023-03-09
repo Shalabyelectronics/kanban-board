@@ -145,6 +145,7 @@ main > section {
   background-color: var(--input-background);
   border: none;
   outline: none;
+  caret-color: var(--background-color);
   font-size: var(--input-field-font-size);
 }
 .task-input:focus {

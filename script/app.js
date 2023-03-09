@@ -310,11 +310,14 @@ class App {
     localStorage.setItem("projectTitle", title);
   }
 
-  static getProjectTitle() {
+  static getProjectTitle(defaultProjectName = "Add you Project Title here") {
     const projecTtitle = localStorage.getItem("projectTitle");
-    if (!projecTtitle) return;
     const mainHeadingInput = document.querySelector("textarea");
-    mainHeadingInput.value = projecTtitle;
+    if (projecTtitle) {
+      mainHeadingInput.value = projecTtitle;
+    } else {
+      mainHeadingInput.value = defaultProjectName;
+    }
   }
 }
 

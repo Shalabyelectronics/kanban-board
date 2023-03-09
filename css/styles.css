@@ -20,6 +20,10 @@ body {
   overflow-x: hidden;
 }
 
+.lock-body {
+  overflow-y: hidden;
+}
+
 :root {
   --main-font-color: #222831;
   --main-heading-font-size: 4rem;

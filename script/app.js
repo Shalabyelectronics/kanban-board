@@ -321,6 +321,7 @@ class App {
   }
 
   static projectDeletion() {
+    const body = document.body;
     const confirmationBox = document.querySelector(".deletion-confirm-box");
     const yesBtn = confirmationBox.querySelector(".btn:first-child");
     const noBtn = confirmationBox.querySelector(".btn:last-child");
@@ -330,10 +331,12 @@ class App {
     deleteIcon.addEventListener("click", () => {
       confirmationBox.classList.add("drop-deletion-confirm");
       dropLayer.classList.add("active-drop-layer");
+      body.classList.add("lock-body");
     });
     noBtn.addEventListener("click", () => {
       confirmationBox.classList.remove("drop-deletion-confirm");
       dropLayer.classList.remove("active-drop-layer");
+      body.classList.remove("lock-body");
     });
     yesBtn.addEventListener("click", () => {
       this.startedTasksList.clearTaskListData();
@@ -342,6 +345,7 @@ class App {
       this.removeProjectTitle();
       confirmationBox.classList.remove("drop-deletion-confirm");
       dropLayer.classList.remove("active-drop-layer");
+      body.classList.remove("lock-body");
       window.location.reload();
     });
   }

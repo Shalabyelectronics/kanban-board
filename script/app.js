@@ -92,6 +92,7 @@ class TaskItem {
       if (e.target.value.trim()) {
         e.target.disabled = true;
         error.classList.remove("show");
+        inputField.classList.remove("active-box-shadow");
         inputField.classList.remove("input-error");
         if (this.submitTask) return;
         this.updateTaskValueHandler(this.taskElement, this.taskID);
@@ -113,6 +114,7 @@ class TaskItem {
         inputField.disabled = true;
         error.classList.remove("show");
         inputField.classList.remove("input-error");
+        inputField.classList.remove("active-box-shadow");
         if (this.submitTask) return;
         this.updateTaskValueHandler(this.taskElement, this.taskID);
         this.submitTask = true;
@@ -125,9 +127,11 @@ class TaskItem {
 
   // 3
   editInputField = () => {
+    const inputField = this.taskElement.querySelector("input");
     const editElement = this.taskElement.querySelector(".edit-task");
     editElement.addEventListener("click", () => {
       const input = this.taskElement.querySelector("input");
+      inputField.classList.add("active-box-shadow");
       input.disabled = false;
     });
   };

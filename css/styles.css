@@ -28,7 +28,7 @@ body {
 }
 
 :root {
-  --main-font-color: #222831;
+  --main-font-color: #000;
   --main-heading-font-size: 4rem;
   --table-heading-font-size: 3rem;
   --table-heading-font-color: #eee;
@@ -91,10 +91,9 @@ body {
   padding: 0.3rem 1rem;
 }
 header {
-  margin: 2rem 0 0 0;
+  margin: 3rem 0 0 0;
   padding: 0 var(--edg-spacing);
   position: relative;
-  /* width: 120rem; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -246,11 +245,17 @@ main > section {
   font-size: var(--input-field-font-size);
   padding: 0.5rem;
   width: 100%;
+  font-weight: 600;
   background-color: var(--input-background);
   border: none;
   outline: none;
   caret-color: var(--background-color);
   font-family: inherit;
+  border-radius: 3px;
+}
+.task-input::placeholder {
+  color: var(--input-font-color);
+  font-weight: 600;
 }
 .task-input:focus {
   box-shadow: 0 0 5px 3px rgba(130, 239, 245, 0.541);
@@ -266,6 +271,7 @@ main > section {
   padding: 5px 0;
   font-family: inherit;
   font-weight: 600;
+  border-radius: 3px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.541);
 }
 
@@ -290,6 +296,10 @@ footer > small {
 #author:visited {
   text-decoration: none;
   color: var(--main-font-color);
+}
+#author:hover,
+#author:active {
+  color: var(--input-font-color);
 }
 
 .dropable {

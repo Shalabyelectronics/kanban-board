@@ -307,6 +307,9 @@ footer > small {
 }
 
 @media (max-width: 37.5em) {
+  html {
+    font-size: 52.5%;
+  }
   .tasks-container {
     flex: 1 0 100%;
   }

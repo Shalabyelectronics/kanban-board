@@ -91,7 +91,7 @@ body {
   padding: 0.3rem 1rem;
 }
 header {
-  margin: 10rem 0 5rem 0;
+  margin: 2rem 0 0 0;
   padding: 0 var(--edg-spacing);
   position: relative;
   /* width: 120rem; */
@@ -109,12 +109,12 @@ header {
   transition: opacity 0.5s;
 }
 .edit-titleInput {
-  right: 40px;
-  bottom: 0;
+  right: 50px;
+  bottom: 3px;
 }
 .remove-project {
-  right: 10px;
-  bottom: 0;
+  right: 20px;
+  bottom: 3px;
 }
 .remove-project:hover,
 .edit-titleInput:hover {

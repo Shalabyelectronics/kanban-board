@@ -354,14 +354,10 @@ class App {
     localStorage.setItem("projectTitle", title);
   }
 
-  static getProjectTitle(defaultProjectName = "Add your Project Name") {
-    const projecTtitle = localStorage.getItem("projectTitle");
+  static getProjectTitle() {
     const mainHeadingInput = document.querySelector("textarea");
-    if (projecTtitle) {
-      mainHeadingInput.value = projecTtitle;
-    } else {
-      mainHeadingInput.value = defaultProjectName;
-    }
+    const projecTtitle = localStorage.getItem("projectTitle");
+    mainHeadingInput.value = projecTtitle;
   }
 }
 

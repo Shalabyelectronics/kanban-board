@@ -59,7 +59,7 @@ body {
   background-color: #9d2020;
   z-index: 1000;
   /* Return it to -15% after finishing dropdown layer */
-  top: -15%;
+  top: -25%;
   margin: 0 5px;
   color: #fff;
   padding: 1rem;
@@ -198,6 +198,7 @@ main > section {
   flex: 1 1 50rem;
   padding: 5px;
   gap: 1rem;
+  min-height: 30%;
 }
 
 .task-container {
@@ -232,7 +233,9 @@ main > section {
 .tasks-list > li:last-child {
   margin-bottom: 1rem;
 }
-
+.tasks-container {
+  flex: 1 0 10%;
+}
 .add-task-btn {
   width: 100%;
   font-size: var(--add-btn-font-size);
@@ -291,4 +294,10 @@ footer > small {
 
 .dropable {
   background: #6dd4da;
+}
+
+@media (max-width: 37.5em) {
+  .tasks-container {
+    flex: 1 0 100%;
+  }
 }

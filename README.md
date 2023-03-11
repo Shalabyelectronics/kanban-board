@@ -2,7 +2,6 @@
 
 ## This is a second project from Al bynyan Al marsoos Competition.
 ![mobile-Preview1](https://user-images.githubusercontent.com/57592040/224466795-84ea7f19-bebd-4045-959d-b899984b46b5.jpg)
-![mobile-Preview2](https://user-images.githubusercontent.com/57592040/224466800-0a5f3281-bd15-4c16-bf2d-4bd1e94761f1.jpg)
 
 ![mobile-live-Preview](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOWJiZTQ5YzU4NGNjMmExYmQ0NGNiNjExMzYxMWUxMGU2NWM3NjM0ZSZjdD1n/3b6TXPzy7y2PVjIRj9/giphy.gif)
 

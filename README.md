@@ -1,8 +1,11 @@
 # Kanban Board
 
 ## This is a second project from Al bynyan Al marsoos Competition.
+![mobile-Preview1](https://user-images.githubusercontent.com/57592040/224466795-84ea7f19-bebd-4045-959d-b899984b46b5.jpg)
+![mobile-Preview2](https://user-images.githubusercontent.com/57592040/224466800-0a5f3281-bd15-4c16-bf2d-4bd1e94761f1.jpg)
 
-<iframe src="https://giphy.com/embed/3b6TXPzy7y2PVjIRj9" width="216" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/3b6TXPzy7y2PVjIRj9">via GIPHY</a></p>
+![mobile-live-Preview](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOWJiZTQ5YzU4NGNjMmExYmQ0NGNiNjExMzYxMWUxMGU2NWM3NjM0ZSZjdD1n/3b6TXPzy7y2PVjIRj9/giphy.gif)
+
 
 This my project [demo](https://shalabyelectronics.github.io/kanban-board/) link.
 
@@ -53,15 +56,15 @@ I learned a lot actually but the most important that I challenged myself and I l
 
 ### Classes and their job..
 
-- #### ==TasksList==
+#### TasksList Class
   It Job to create seprate list for each project stage as | not started | in progress | completed.
-- #### ==TaskItem==
+#### TaskItem Class
   It Job to create an task item when user add a task for each project stage and add `EventsListeners`
-- #### ==SwitchTasks==
+#### SwitchTasks Class
   It Job to switch task between project stage lists when dragging and dropping task.
-- #### ==CreatTaskComponent==
+#### CreatTaskComponent Class
   It Job to create a task inner HTML code.
-- #### ==App==
+#### App Class
   It Job to Initialize the project and manage it.
 
 ---
